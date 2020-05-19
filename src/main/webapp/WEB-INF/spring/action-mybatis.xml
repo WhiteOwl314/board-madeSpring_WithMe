@@ -21,4 +21,18 @@
 		<property name="username" value="${jdbc.username}"/>
 		<property name="password" value="${jdbc.password}"/>
 	</bean>
+	
+	<bean id="sqlSessionFactory"
+			class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"/>
+		<property name="configLocation" 
+				value="classpath:mybatis/model/modelConfig.xml"/>
+		<property name="mapperLocations" 
+				value="classpath:mybatis/mappers/*.xml" />
+	</bean>
+	
+	<bean id="sqlSession"
+			class="org.mybatis.spring.SqlSessionTemplate" >
+		<constructor-arg index="0" ref="sqlSessionFactory"></constructor-arg>
+	</bean>
 </beans>
