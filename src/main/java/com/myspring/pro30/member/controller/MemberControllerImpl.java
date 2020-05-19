@@ -70,10 +70,16 @@ public class MemberControllerImpl implements MemberController{
 	}
 
 	@Override
-	public ModelAndView removeMember(String id, HttpServletRequest request, HttpServletResponse response)
-			throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	@RequestMapping(value="/member/removeMember.do", method = RequestMethod.GET)
+	public ModelAndView removeMember(
+			@RequestParam("id")String id, 
+			HttpServletRequest request,
+			HttpServletResponse response)
+	throws Exception {
+		request.setCharacterEncoding("utf-8");
+		memberService.removeMember(id);
+		ModelAndView mav = new ModelAndView("redirect:/member/listMembers.do");
+		return mav;
 	}
 
 	@Override
