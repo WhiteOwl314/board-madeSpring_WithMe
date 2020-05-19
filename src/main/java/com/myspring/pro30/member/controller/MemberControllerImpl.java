@@ -1,5 +1,7 @@
 package com.myspring.pro30.member.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -37,9 +39,17 @@ public class MemberControllerImpl implements MemberController{
 	}
 
 	@Override
-	public ModelAndView listMembers(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	@RequestMapping(value="/member/listMembers.do", 
+				method=RequestMethod.GET)
+	public ModelAndView listMembers(
+			HttpServletRequest request, 
+			HttpServletResponse response
+	) throws Exception {
+		String viewName = (String)request.getAttribute("viewName");
+		List membersList = memberService.listMembers();
+		ModelAndView mav = new ModelAndView(viewName);
+		mav.addObject("membersList",membersList);
+		return mav;
 	}
 
 	@Override
