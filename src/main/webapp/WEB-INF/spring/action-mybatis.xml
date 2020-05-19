@@ -7,7 +7,7 @@
  	<!-- 외부 프로퍼티 파일 가져오기 -->
 	<bean id="propertyPlaceholderConfigurer"
 			class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer" >
-		<property name="loactions">
+		<property name="locations">
 			<value>
 				/WEB-INF/config/jdbc/jdbc.properties
 			</value>
