@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.myspring.pro30.member.service.MemberService;
 import com.myspring.pro30.member.vo.MemberVO;
@@ -24,7 +25,7 @@ public class MemberControllerImpl implements MemberController{
 			value= {"/", "/main.do"},
 			method= RequestMethod.GET
 	)
-	private ModelAndView listMembers(
+	private ModelAndView main(
 			HttpServletRequest request,
 			HttpServletResponse response
 	) throws Exception{
@@ -33,6 +34,39 @@ public class MemberControllerImpl implements MemberController{
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName(viewName);
 		return mav;
+	}
+
+	@Override
+	public ModelAndView listMembers(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ModelAndView addMember(MemberVO memberVO, HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ModelAndView removeMember(String id, HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ModelAndView login(MemberVO member, RedirectAttributes rAttr, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ModelAndView logout(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 
