@@ -83,10 +83,32 @@ public class MemberControllerImpl implements MemberController{
 	}
 
 	@Override
-	public ModelAndView login(MemberVO member, RedirectAttributes rAttr, HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	@RequestMapping(value="/member/login.do", method = RequestMethod.POST)
+	public ModelAndView login(
+			@ModelAttribute("member")MemberVO member, 
+			RedirectAttributes rAttr, 
+			HttpServletRequest request,
+			HttpServletResponse response
+	) throws Exception {
+		ModelAndView mav = new ModelAndView();
+		memberVO = memberService.login(member);
+		if(memberVO != null) {
+			HttpSession session = request.getSession();
+			session.setAttribute("member", memberVO);
+			session.setAttribute("isLogOn", true);
+			String action = (String)session.getAttribute("action");
+			session.removeAttribute("action");
+			if(action != null) {
+				mav.setViewName("redirect:"+action);
+			} else {
+				mav.setViewName("redirect:/member/listMembers.do");
+			}
+			
+		} else {
+			rAttr.addAttribute("result", "loginFailed");
+			mav.setViewName("redirect:/member/loginForm.do");
+		}
+		return mav;
 	}
 
 	@Override
@@ -95,13 +117,18 @@ public class MemberControllerImpl implements MemberController{
 		return null;
 	}
 	
-	@RequestMapping(value="/member/memberForm.do", method = RequestMethod.GET)
+	@RequestMapping(value="/member/*Form.do", method = RequestMethod.GET)
 	private ModelAndView form(
+			@RequestParam(value="result", required = false) String result,
+			@RequestParam(value="action", required = false) String action,
 			HttpServletRequest request,
 			HttpServletResponse response
 	) throws Exception{
 		String viewName = (String)request.getAttribute("viewName");
+		HttpSession session = request.getSession();
+		session.setAttribute("action", action);
 		ModelAndView mav = new ModelAndView();
+		mav.addObject("result",result);
 		mav.setViewName(viewName);
 		return mav;
 	}

@@ -37,4 +37,9 @@ public class MemberServiceImpl implements MemberService{
 		return memberDAO.deleteMember(id);
 	}
 
+	@Override
+	public MemberVO login(MemberVO memberVO) throws Exception {
+		return memberDAO.loginById(memberVO);
+	}
+
 }
