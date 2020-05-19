@@ -112,9 +112,17 @@ public class MemberControllerImpl implements MemberController{
 	}
 
 	@Override
-	public ModelAndView logout(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	@RequestMapping(value="/member/logout.do", method = RequestMethod.GET)
+	public ModelAndView logout(
+			HttpServletRequest request, 
+			HttpServletResponse response
+	) throws Exception {
+		HttpSession session = request.getSession();
+		session.removeAttribute("member");
+		session.removeAttribute("isLogOn");
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("redirect:/member/listMembers.do");
+		return mav;
 	}
 	
 	@RequestMapping(value="/member/*Form.do", method = RequestMethod.GET)
