@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.myspring.pro30.member.dao.MemberDAO;
+import com.myspring.pro30.member.vo.MemberVO;
 
 @Service("memberService")
 //Propagation: 전파 REQUIRED: 호출한 곳에서 별도의 트랜잭션이 
@@ -24,6 +25,11 @@ public class MemberServiceImpl implements MemberService{
 		List membersList = null;
 		membersList = memberDAO.selectAllMemberList();
 		return membersList;
+	}
+
+	@Override
+	public int addMember(MemberVO member) throws DataAccessException {
+		return memberDAO.insertMember(member);
 	}
 
 }

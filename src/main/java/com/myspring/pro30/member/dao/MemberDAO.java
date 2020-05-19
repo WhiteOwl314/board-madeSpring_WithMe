@@ -4,8 +4,12 @@ import java.util.List;
 
 import org.springframework.dao.DataAccessException;
 
+import com.myspring.pro30.member.vo.MemberVO;
+
 public interface MemberDAO {
 
 	public List selectAllMemberList() throws DataAccessException;
+
+	public int insertMember(MemberVO memberVO) throws DataAccessException;
 
 }
