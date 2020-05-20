@@ -1,6 +1,9 @@
 package com.myspring.pro30.board.controller;
 
+import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -41,9 +44,20 @@ public class BoardControllerImpl implements BoardController{
 	}
 
 	@Override
-	public ResponseEntity addNewArticle(MultipartHttpServletRequest multipartRequest, HttpServletResponse response)
-			throws Exception {
-		// TODO Auto-generated method stub
+	@RequestMapping(value="/board/addNewArticle.do", method = RequestMethod.POST)
+	public ResponseEntity addNewArticle(
+			MultipartHttpServletRequest multipartRequest, 
+			HttpServletResponse response
+	) throws Exception {
+		multipartRequest.setCharacterEncoding("utf-8");
+		Map<String, Object> articleMap = new HashMap<String, Object>();
+		Enumeration enu = multipartRequest.getParameterNames();
+		while(enu.hasMoreElements()) {
+			String name = (String)enu.nextElement();
+			String value = multipartRequest.getParameter(name);
+			articleMap.put(name, value);
+		}
+
 		return null;
 	}
 
