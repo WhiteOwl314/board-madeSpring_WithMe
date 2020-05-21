@@ -25,5 +25,9 @@ public interface BoardController {
 			HttpServletRequest request,
 			HttpServletResponse response
 	) throws Exception;
-
+	public ResponseEntity  removeArticle(
+			@RequestParam("articleNO") int articleNO,
+            HttpServletRequest request, 
+            HttpServletResponse response
+    ) throws Exception;
 }

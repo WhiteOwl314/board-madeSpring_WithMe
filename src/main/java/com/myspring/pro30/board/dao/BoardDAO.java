@@ -17,4 +17,6 @@ public interface BoardDAO {
 
 	public void updateArticle(Map<String, Object> articleMap) throws DataAccessException;
 
+	public void deleteArticle(int articleNO) throws DataAccessException;
+
 }

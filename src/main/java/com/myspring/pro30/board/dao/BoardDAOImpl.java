@@ -44,4 +44,9 @@ public class BoardDAOImpl implements BoardDAO{
 		sqlSession.update("mapper.board.updateArticle", articleMap);
 	}
 
+	@Override
+	public void deleteArticle(int articleNO) throws DataAccessException {
+		sqlSession.delete("mapper.board.deleteArticle", articleNO);
+	}
+
 }

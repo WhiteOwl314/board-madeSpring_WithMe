@@ -18,6 +18,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -219,6 +220,41 @@ public class BoardControllerImpl implements BoardController{
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName(viewName);
 		return mav;
+	}
+
+	@Override
+	@RequestMapping(value="/board/removeArticle.do", method = RequestMethod.POST)
+	public ResponseEntity removeArticle(
+			@RequestParam("articleNO") int articleNO, 
+			HttpServletRequest request, 
+			HttpServletResponse response
+	) throws Exception {
+		response.setContentType("text/html; charset=utf-8");
+		String message;
+		ResponseEntity resEnt = null;
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.add("Content-type", "text/html; charset=utf-8");
+		try {
+			
+			boardService.removeArticle(articleNO);
+			File destDir = new File(ARTICLE_IMAGE_REPO + "/" + articleNO);
+			FileUtils.deleteDirectory(destDir);
+			
+			message = "<script>";
+			message += " alert('삭제 성공했습니다.');";
+			message += " location.href='"+ request.getContextPath() + "/board/listArticles.do';";
+			message += " </script>";
+			resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
+		} catch (Exception e) {
+			message = "<script>";
+			message += " alert('삭제 실패했습니다.');";
+			message += " locateion.href='" + request.getContextPath() + "/board/listArticles.do';";
+			message += " </script>";
+			resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
+			e.printStackTrace();
+		}
+		
+		return resEnt;
 	}
 
 }
