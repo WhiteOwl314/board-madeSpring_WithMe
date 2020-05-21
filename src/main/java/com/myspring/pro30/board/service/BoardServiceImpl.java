@@ -35,4 +35,9 @@ public class BoardServiceImpl implements BoardService{
 		return articleVO;
 	}
 
+	@Override
+	public void modArticle(Map<String, Object> articleMap) throws Exception {
+		boardDAO.updateArticle(articleMap);
+	}
+
 }
