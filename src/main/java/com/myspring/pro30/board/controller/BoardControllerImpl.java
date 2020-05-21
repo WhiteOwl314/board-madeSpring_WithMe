@@ -20,6 +20,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -112,6 +113,21 @@ public class BoardControllerImpl implements BoardController{
 
 		return resEnt;
 	}
+	
+	@Override
+	@RequestMapping(value="/board/viewArticle.do", method = RequestMethod.GET)
+	public ModelAndView viewArticle(
+			@RequestParam("articleNO") int articleNO,
+			HttpServletRequest request,
+			HttpServletResponse response
+	) throws Exception{
+		String viewName = (String) request.getAttribute("viewName");
+		articleVO = boardService.viewArticle(articleNO);
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName(viewName);
+		mav.addObject("article", articleVO);
+		return mav;
+	}
 
 	private String upload(MultipartHttpServletRequest multipartRequest) 
 			throws Exception{
@@ -135,12 +151,6 @@ public class BoardControllerImpl implements BoardController{
 		return imageFileName;
 	}
 
-	@Override
-	public ModelAndView viewArticle(int articleNO, HttpServletRequest request, HttpServletResponse response)
-			throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
 	
 	@RequestMapping(value="/board/*Form.do", method = RequestMethod.GET)
 	private ModelAndView form(

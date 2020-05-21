@@ -13,4 +13,6 @@ public interface BoardDAO {
 
 	int insertNewArticle(Map articleMap) throws DataAccessException;
 
+	ArticleVO selectArticle(int articleNO) throws DataAccessException;
+
 }
